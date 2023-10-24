@@ -15,36 +15,36 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('categories')->insert([
+            'name' => 'Tenis Lifestyle',
+            'description' => ' Calzado versátil y elegante para un estilo de vida activo y a la moda.',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('categories')->insert([
             'name' => 'Running',
-            'description' => 'Son modelos pensados para ofrecer estabilidad, amortiguación y durabilidad al corredor, este tipo de zapatillas son las que la gran mayoría de corredores utiliza para sus rodajes a diario, independientemente de su peso.',
+            'description' => 'Zapatillas diseñadas para corredores, ofreciendo comodidad y rendimiento en carreras y entrenamientos.',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Montaña',
-            'description' => 'Son modelos pensados para ofrecer estabilidad, amortiguación y durabilidad al corredor, este tipo de zapatillas son las que la gran mayoría de corredores utiliza para sus rodajes a diario, independientemente de su peso.',
+            'name' => 'Fútbol',
+            'description' => 'Calzado especializado para el fútbol, con agarre y control optimizados en el campo.',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Deportes',
-            'description' => 'Son modelos pensados para ofrecer estabilidad, amortiguación y durabilidad al corredor, este tipo de zapatillas son las que la gran mayoría de corredores utiliza para sus rodajes a diario, independientemente de su peso.',
+            'name' => 'Jordan',
+            'description' => 'Zapatillas icónicas de baloncesto con un estilo distintivo, en colaboración con Michael Jordan.',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Sneakers',
-            'description' => 'Son modelos pensados para ofrecer estabilidad, amortiguación y durabilidad al corredor, este tipo de zapatillas son las que la gran mayoría de corredores utiliza para sus rodajes a diario, independientemente de su peso.',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        DB::table('categories')->insert([
-            'name' => 'Casuales',
-            'description' => 'Son modelos pensados para ofrecer estabilidad, amortiguación y durabilidad al corredor, este tipo de zapatillas son las que la gran mayoría de corredores utiliza para sus rodajes a diario, independientemente de su peso.',
+            'name' => 'Basketball',
+            'description' => 'Zapatillas diseñadas para el baloncesto, proporcionando soporte y tracción en la cancha.',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
