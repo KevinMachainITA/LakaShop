@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductCollection;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        $category= $products->category;
-        return $products." ".$category->name;
+        return new ProductCollection(Product::all());
     }
 
     /**
