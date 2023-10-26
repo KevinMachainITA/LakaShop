@@ -35,6 +35,12 @@ class AuthController extends Controller
                 'errors' => ['The credentials are incorrect']
             ], 422);
         }
+
+        $user = Auth::user();
+        return [
+            'token' => $user->createToken('token')->plainTextToken,
+            'user' => $user
+        ];
     }
 
     public function logout(){
