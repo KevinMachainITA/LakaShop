@@ -14,10 +14,10 @@ class AuthController extends Controller
         $data = $request->validated();
 
         $user = new User;
-        $user->first_name = $data['first_name'];
-        $user->last_name = $data['last_name'];
+        $user->name = $data['name'];
         $user->email = $data['email'];
         $user->shipping_address = $data['shipping_address'];
+        $user->phone = $data['phone'];
         $user->password = bcrypt($data['password']);
         $user->save();
 
