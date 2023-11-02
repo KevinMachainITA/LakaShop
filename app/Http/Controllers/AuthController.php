@@ -22,7 +22,7 @@ class AuthController extends Controller
         $user->save();
 
         return [
-            'token' => $user->createToken('token')->plainTextToken,
+            'token' => $user->createToken('MyApp')->accessToken,
             'user' => $user
         ];
     }
@@ -38,7 +38,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return [
-            'token' => $user->createToken('token')->plainTextToken,
+            'token' => $user->createToken('MyApp')->accessToken,
             'user' => $user
         ];
     }
