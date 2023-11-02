@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
@@ -22,7 +23,7 @@ class AuthController extends Controller
         $user->save();
 
         return [
-            'token' => $user->createToken('token')->plainTextToken,
+            'token' => $user->createToken('MyApp')->accessToken,
             'user' => $user
         ];
     }
@@ -38,12 +39,13 @@ class AuthController extends Controller
 
         $user = Auth::user();
         return [
-            'token' => $user->createToken('token')->plainTextToken,
+            'token' => $user->createToken('MyApp')->accessToken,
             'user' => $user
         ];
     }
 
-    public function logout(){
-
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response()->json(['message' => 'Logout successfully']);
     }
 }
