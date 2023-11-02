@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
@@ -43,7 +44,8 @@ class AuthController extends Controller
         ];
     }
 
-    public function logout(){
-
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response()->json(['message' => 'Logout successfully']);
     }
 }
