@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
@@ -21,6 +22,10 @@ class AuthController extends Controller
         $user->phone = $data['phone'];
         $user->password = bcrypt($data['password']);
         $user->save();
+
+        $cart = new Cart;
+        $cart->user_id = $user->id;
+        $cart->save();
 
         return [
             'token' => $user->createToken('MyApp')->accessToken,
