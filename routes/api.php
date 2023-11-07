@@ -3,9 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +21,19 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::middleware('auth:api')->group(function(){
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    //Routes to users
+    Route::get('/user', function (Request $request) {return $request->user();});
+    Route::get('/users-index', [UserController::class, 'index']);
 
-    Route::post('/logout',[AuthController::class, 'logout']);    
+    Route::post('/logout',[AuthController::class, 'logout']);
+    
+    //Routes to cart
+    Route::get('/cart-index', [CartController::class, 'index']);
+
+    //Routes to cart-items
+    Route::get('/items-index', [CartItemController::class, 'index']);
+    Route::post('/items-store', [CartItemController::class, 'store']);
+    Route::post('/items-destroy', [CartItemController::class, 'destroy']);
 });
 
 Route::apiResource('/categories', CategoryController::class);
