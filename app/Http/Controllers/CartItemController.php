@@ -10,7 +10,7 @@ class CartItemController extends Controller
 {
     public function index(){
         $user = Auth::user(); 
-        $cart = $user->carts->first(); 
+        $cart = $user->carts->first();
 
         if ($cart) {
             $cartItems = $cart->cartItems; // Accedemos a la relación cartItems del carrito.
@@ -38,6 +38,28 @@ class CartItemController extends Controller
             return ['message' => 'Added successfuly'];
         } else {
             return ['error' => 'Error to add item in the cart'];
+        }
+    }
+
+    public function update(Request $request){
+        $cart = $request->cart_id;
+        $product = $request->product_id;
+        $quantity = $request->quantity;
+
+        // Busca el registro en la tabla cart_items
+        $cartItem = CartItem::where('cart_id', $cart)
+                            ->where('product_id', $product)
+                            ->first();
+
+        if ($cartItem) {
+            // Si se encontró el registro, actualiza la cantidad
+            $cartItem->quantity = $quantity;
+            $cartItem->save();
+            
+            return response()->json(['message' => 'Update product in the cart'], 200);
+        } else {
+            // Si no se encontró el registro, puedes manejarlo de la manera que consideres apropiada, por ejemplo, mostrar un mensaje de error.
+            return response()->json(['message' => 'Error to update product in the cart'], 404);
         }
     }
 
