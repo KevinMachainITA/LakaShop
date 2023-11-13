@@ -24,11 +24,33 @@ class ProductController extends Controller
         //
     }
 
+    public function searchByName(Request $request)
+    {
+        $searchTerm = $request->searchTerm;
+        $products = Product::where('name', 'like', '%' . $searchTerm . '%')->get();
+        if ($products->isEmpty()) {
+            return response()->json(['data' => []]);
+        } else {
+            return new ProductCollection($products);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' =>['required','string'],
+            'description' =>['required','string'],
+            'price' =>['required','numeric','min:1','max:99999'],
+            'stock' =>['required','numeric','min:1','max:1000'],
+            'discount' =>['required','numeric','min:0','max:100','not_in:0'],
+            'size' =>['required','numeric','min:1','max:40'],
+            'image' =>['string'],
+            'category_id' =>['required']
+        ]);
+
         $product = new Product;
         $product->name = $request->name;
         $product->description = $request->description;
@@ -40,9 +62,9 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         
         if($product->save()){
-            return 'Saved';
+            return response()->json(['message' => 'Product created successfully'], 201);
         } else {
-            return 'Error';
+            return response()->json(['error' => 'The product could not be saved'], 400);
         }
     }
 

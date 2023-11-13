@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Resources\UserCollection;
 
 class UserController extends Controller
@@ -14,6 +15,18 @@ class UserController extends Controller
     public function index()
     {
         return new UserCollection(User::all());
+    }
+
+
+    public function searchByName(Request $request)
+    {
+        $searchTerm = $request->searchTerm;
+        $users = User::where('name', 'like', '%' . $searchTerm . '%')->get();
+        if ($users->isEmpty()) {
+            return response()->json(['data' => []]);
+        } else {
+            return new UserCollection($users);
+        }
     }
 
     /**
@@ -51,9 +64,33 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'id' =>['required'],
+            'name' =>['required','string'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($request->id),
+            ],
+            'phone' =>['required','string'],
+            'shipping_address' =>['required','string'],
+            'admin' => ['required']
+        ]);
+
+        $user = User::find($request->id);
+        $user->name =  $request->name;
+        $user->email =  $request->email;
+        $user->phone =  $request->phone;
+        $user->shipping_address =  $request->shipping_address;
+        $user->admin = $request->admin;
+
+        if($user->save()){
+            return response()->json(['message' => 'User updated successfully'], 200);
+        } else {
+            return response()->json(['error' => 'User have not updated'], 400);
+        }
     }
 
     /**
