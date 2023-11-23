@@ -34,14 +34,14 @@ class OrderController extends Controller
 
     public function show()
     {
-        // Obtén el usuario autenticado
+        // Get the authenticated user.
         $user = Auth::user();
 
         if (!$user) {
             return response()->json(['error' => 'Usuario no autenticado'], 401);
         }
 
-        // Obtén todas las órdenes del usuario con sus detalles y productos asociados
+        // Get all orders of the user with their details and associated products.
         $orders = Order::where('user_id', $user->id)
             ->with(['orderDetails' => function ($query) {
                 $query->with('product');
@@ -57,7 +57,7 @@ class OrderController extends Controller
         if (Auth::check()){
             $user = Auth::user();
             
-            $total = 0; // Inicializa el total en 0
+            $total = 0; // Initialize the total to 0.
 
             $cart = $user->carts->first();
 
@@ -69,18 +69,18 @@ class OrderController extends Controller
                 } else {
                     if($this->amountStock($cartItems)){
                         foreach ($cartItems as $cartItem) {
-                            $productPrice = $cartItem->product->price; // Precio del producto
-                            $quantity = $cartItem->quantity; // Cantidad del producto
-                            $discount = $cartItem->product->discount; // Descuento del producto
+                            $productPrice = $cartItem->product->price; // Product price.
+                            $quantity = $cartItem->quantity; // Product quantity.
+                            $discount = $cartItem->product->discount; // Product discount.
 
-                            // Calcula el subtotal teniendo en cuenta el descuento
+                            // Calculate the subtotal taking into account the discount.
                             $subtotal = ($productPrice - ($productPrice * ($discount / 100))) * $quantity;
 
-                            $total += $subtotal; // Suma el subtotal al total
-                            // Actualiza el stock del producto
+                            $total += $subtotal; // Add the subtotal to the total.
+                            // Update the product stock.
                             $product = $cartItem->product;
                             $product->stock -= $cartItem->quantity;
-                            $product->save(); // Guarda la actualización en la base de datos
+                            $product->save(); // Save the update in the database.
                         }
                     } else {
                         return response()->json(['error', 'The amount of the one product is over than stock'],400);
@@ -103,13 +103,13 @@ class OrderController extends Controller
             $id = $order->id;
 
             foreach ($cartItems as $cartItem) {
-                // Crea una fila en la tabla "order_details" para cada producto en el carrito
-                $quantity = $cartItem->quantity; // Cantidad del producto
-                $discount = $cartItem->product->discount; // Descuento del producto
-                $productPrice = $cartItem->product->price; // Precio del producto
+                // Create a row in the "order_details" table for each product in the cart.
+                $quantity = $cartItem->quantity; // Quantity of the product.
+                $discount = $cartItem->product->discount; // Product discount.
+                $productPrice = $cartItem->product->price; // Product price
                 $productPriceDiscount = $productPrice - ($productPrice * ($discount / 100));
                 
-                // Calcula el subtotal teniendo en cuenta el descuento
+                // Calculate the subtotal considering the discount.
                 $subtotal = ($productPrice - ($productPrice * ($discount / 100))) * $quantity;
 
                 $orderDetail = new OrderDetail();
@@ -123,7 +123,7 @@ class OrderController extends Controller
                 $cartItems = $cart->cartItems()->where('product_id', $cartItem->product->id)->get();
 
                 foreach ($cartItems as $cartItem) {
-                    $cartItem->delete(); // Eliminar cada elemento del carrito
+                    $cartItem->delete(); // Delete each item from the cart.
                 }
             }
             response()->json(['message' => 'Orden created successfully', 'order_id' => $id], 201);
@@ -135,20 +135,20 @@ class OrderController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'status' => 'required|string', // Asegúrate de tener la validación adecuada
+            'status' => 'required|string', // Make sure you have the proper validation.
             'orderId' => 'required'
         ]);
 
         $orderId = $request->orderId;
 
-        // Busca la orden por su ID
+        // Search for the order by its ID.
         $order = Order::find($orderId);
 
         if (!$order) {
             return response()->json(['error' => 'Order do not found'], 404);
         }
 
-        // Actualiza el estado de la orden
+        // Update the status of the order.
         $order->status = $request->status;
         if($order->save()){
             return response()->json(['message' => 'Order status was updated successfully']);
