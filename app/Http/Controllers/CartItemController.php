@@ -13,12 +13,12 @@ class CartItemController extends Controller
         $cart = $user->carts->first();
 
         if ($cart) {
-            $cartItems = $cart->cartItems; // Accedemos a la relación cartItems del carrito.
+            $cartItems = $cart->cartItems; // We access the cartItems relationship of the cart.
             $products = [];
             $quantities = [];
         
             foreach ($cartItems as $cartItem) {
-                $products[] = $cartItem->product; // Agregamos el producto relacionado al array de productos.
+                $products[] = $cartItem->product; // We add the related product to the array of products.
                 $quantities[] = $cartItem->quantity;
             }
         
@@ -46,39 +46,39 @@ class CartItemController extends Controller
         $product = $request->product_id;
         $quantity = $request->quantity;
 
-        // Busca el registro en la tabla cart_items
+        // Search for the record in the cart_items table.
         $cartItem = CartItem::where('cart_id', $cart)
                             ->where('product_id', $product)
                             ->first();
 
         if ($cartItem) {
-            // Si se encontró el registro, actualiza la cantidad
+            // If the record is found, update the quantity.
             $cartItem->quantity = $quantity;
             $cartItem->save();
             
             return response()->json(['message' => 'Update product in the cart'], 200);
         } else {
-            // Si no se encontró el registro, puedes manejarlo de la manera que consideres apropiada, por ejemplo, mostrar un mensaje de error.
+            // If the record was not found, you can handle it in a way you deem appropriate, for instance, displaying an error message.
             return response()->json(['message' => 'Error to update product in the cart'], 404);
         }
     }
 
     public function destroy(Request $request){
-        $productId = $request->input('product_id'); // Supongamos que recibes la ID del producto que deseas eliminar.
+        $productId = $request->input('product_id'); // Let's assume you receive the ID of the product you want to delete.
 
-        // Verificar si el usuario está autenticado
+        // Check if the user is authenticated.
         if (Auth::check()) {
-            $user = Auth::user(); // Obtener el usuario autenticado
+            $user = Auth::user(); // Get the authenticated user.
 
-            // Buscar el carrito del usuario
+            // Search for the user's cart.
             $cart = $user->carts->first();
 
             if ($cart) {
-                // Buscar y eliminar todos los elementos del carrito que coincidan con la ID del producto
+                // Search and delete all items in the cart that match the product ID.
                 $cartItems = $cart->cartItems()->where('product_id', $productId)->get();
 
                 foreach ($cartItems as $cartItem) {
-                    $cartItem->delete(); // Eliminar cada elemento del carrito
+                    $cartItem->delete(); // Delete each item from the cart.
                 }
 
                 return response()->json(['message' => 'Producto eliminado del carrito']);
