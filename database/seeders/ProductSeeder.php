@@ -29,6 +29,19 @@ class ProductSeeder extends Seeder
         ]);
 
         DB::table('products')->insert([
+            'name' => 'Air Force 1',
+            'description' => 'El fulgor vive en Nike Air Force 1 ’07, el ícono del básquetbol que le da un toque fresco a las características más recordadas',
+            'price' => 90,
+            'stock' => 250,
+            'discount' => 0,
+            'size' => '25',
+            'image' => 'https://i.postimg.cc/Jn9xZTPy/Air-Force-1.png',
+            'category_id' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('products')->insert([
             'name' => 'Converse Chuck Taylor All Star',
             'description' => 'Las Chuck Taylor All Star de Converse son un icono del estilo casual.',
             'price' => 55.0,
@@ -41,18 +54,6 @@ class ProductSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
-        DB::table('products')->insert([
-            'name' => 'Nike Air Max 270',
-            'description' => 'Combina comodidad y moda con la tecnología Air Max. Diseño moderno y colores llamativos para destacar en la multitud.',
-            'price' => 50,
-            'stock' => 50,
-            'discount' => 0,
-            'size' => '27',
-            'image' => 'https://i.postimg.cc/NMBJ9zdQ/Nike-Air-Max-270.png',
-            'category_id' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
 
         DB::table('products')->insert([
             'name' => 'Vans Old Skool',
@@ -75,6 +76,32 @@ class ProductSeeder extends Seeder
             'discount' => 15,
             'size' => '25',
             'image' => 'https://i.postimg.cc/NfGdZYNK/NIKE-AIR-ZOOM-PEGASUS-38.png',
+            'category_id' => 2,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('products')->insert([
+            'name' => 'Nike Juniper Trail 2 GORE-TEX',
+            'description' => 'El Juniper Trail 2 tiene GORE-TEX impermeable en la parte superior, tracción adherente y una entresuela suave y acolchada.',
+            'price' => 80,
+            'stock' => 100,
+            'discount' => 10,
+            'size' => '28',
+            'image' => 'https://i.postimg.cc/Pf0ZfpRq/Nike-Juniper-Trail-2-GORE-TEX.png',
+            'category_id' => 2,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('products')->insert([
+            'name' => 'Nike Air Max 270',
+            'description' => 'Combina comodidad y moda con la tecnología Air Max. Diseño moderno y colores llamativos para destacar en la multitud.',
+            'price' => 50,
+            'stock' => 50,
+            'discount' => 0,
+            'size' => '27',
+            'image' => 'https://i.postimg.cc/NMBJ9zdQ/Nike-Air-Max-270.png',
             'category_id' => 2,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -127,6 +154,32 @@ class ProductSeeder extends Seeder
             'discount' => 5,
             'size' => '27',
             'image' => 'https://i.postimg.cc/90fcn0rW/NIKE-MERCURIAL-SUPERFLY-8.png',
+            'category_id' => 3,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('products')->insert([
+            'name' => 'Nike Phantom GX Club',
+            'description' => 'Ya sea que estés empezando o juegues para divertirte, el calzado Club te lleva a la cancha sin comprometer la calidad.',
+            'price' => 55,
+            'stock' => 40,
+            'discount' => 0,
+            'size' => '26',
+            'image' => 'https://i.postimg.cc/nr8nQJm6/Nike-Phantom-GX-Club.png',
+            'category_id' => 3,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('products')->insert([
+            'name' => 'Nike Phantom Luna',
+            'description' => 'Adéntrate en el amanecer de un nuevo día y haz que el mundo conozca tus habilidades. La llamativa placa tornasol.',
+            'price' => 65,
+            'stock' => 35,
+            'discount' => 5,
+            'size' => '24',
+            'image' => 'https://i.postimg.cc/pdL28C6J/Nike-Phantom-Luna.png',
             'category_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -192,6 +245,19 @@ class ProductSeeder extends Seeder
             'discount' => 0,
             'size' => '30',
             'image' => 'https://i.postimg.cc/sDNN6KgJ/Air-Jordan-11-Retro.png',
+            'category_id' => 4,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('products')->insert([
+            'name' => 'Air Jordan 1 Mid',
+            'description' => 'Elegantes y sofisticadas, estas zapatillas ofrecen estilo y rendimiento. Perfectas tanto para la cancha como para la calle.',
+            'price' => 175,
+            'stock' => 50,
+            'discount' => 0,
+            'size' => '26',
+            'image' => 'https://i.postimg.cc/43QHBY8J/Air-Jordan-1-Mid.png',
             'category_id' => 4,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

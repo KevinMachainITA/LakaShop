@@ -45,7 +45,7 @@ class ProductController extends Controller
             'description' =>['required','string'],
             'price' =>['required','numeric','min:1','max:99999'],
             'stock' =>['required','numeric','min:1','max:1000'],
-            'discount' =>['required','numeric','min:0','max:100','not_in:0'],
+            'discount' =>['required','numeric','min:0','max:100'],
             'size' =>['required','numeric','min:1','max:40'],
             'image' =>['string'],
             'category_id' =>['required']
@@ -62,7 +62,7 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         
         if($product->save()){
-            return response()->json(['message' => 'Product created successfully'], 201);
+            return response()->json(['message' => 'Product created successfully'], 200);
         } else {
             return response()->json(['error' => 'The product could not be saved'], 400);
         }
@@ -97,7 +97,7 @@ class ProductController extends Controller
             'description' =>['required','string'],
             'price' =>['required','numeric','min:1','max:99999'],
             'stock' =>['required','numeric','min:1','max:1000'],
-            'discount' =>['required','numeric','min:0','max:100','not_in:0'],
+            'discount' =>['required','numeric','min:0','max:100'],
             'size' =>['required','numeric','min:1','max:40'],
             'image' =>['string'],
             'category_id' =>['required']
