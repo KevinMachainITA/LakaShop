@@ -36,6 +36,7 @@ Route::middleware('auth:api')->group(function(){
     //Routes to products
     Route::post('/products-store', [ProductController::class, 'store']);
     Route::post('/products-search', [ProductController::class, 'searchByName']);
+    Route::post('/products-update', [ProductController::class, 'update']);
 
     //Routes to cart-items
     Route::get('/items-index', [CartItemController::class, 'index']);
