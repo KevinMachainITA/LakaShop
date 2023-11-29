@@ -90,9 +90,34 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>['required','string'],
+            'description' =>['required','string'],
+            'price' =>['required','numeric','min:1','max:99999'],
+            'stock' =>['required','numeric','min:1','max:1000'],
+            'discount' =>['required','numeric','min:0','max:100','not_in:0'],
+            'size' =>['required','numeric','min:1','max:40'],
+            'image' =>['string'],
+            'category_id' =>['required']
+        ]);
+
+        $product = Product::find($request->id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->discount = $request->discount;
+        $product->size = $request->size;
+        $product->image = $request->image;
+        $product->category_id = $request->category_id;
+        
+        if($product->save()){
+            return response()->json(['message' => 'Product updated successfully'], 201);
+        } else {
+            return response()->json(['error' => 'The product could not be updated'], 400);
+        }
     }
 
     /**
